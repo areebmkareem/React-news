@@ -45,13 +45,10 @@ function Comments({ comments, isCommentsLoading, ...props }) {
               {comments.map((item, index) => (
                 <ListItem key={index} alignItems="flex-start">
                   <ListItemAvatar>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
-                    />
+                    <Avatar alt={item.username}>{item.username[0]}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Brunch this weekend?"
+                    primary={item.username}
                     secondary={
                       <React.Fragment>
                         <Typography
@@ -59,9 +56,8 @@ function Comments({ comments, isCommentsLoading, ...props }) {
                           variant="body2"
                           className={classes.inline}
                           color="textPrimary">
-                          Ali Connors
+                          {item.comments}
                         </Typography>
-                        {" — I'll be in your neighborhood doing errands this…"}
                       </React.Fragment>
                     }
                   />
