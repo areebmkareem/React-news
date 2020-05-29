@@ -5,7 +5,6 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import Home from "./Components/Home";
 import Comments from "./Components/Comments";
 import { connect } from "react-redux";
-import { isUserAuthenticated } from "./Store/Actions/Authentication";
 import CustomizedSnackbars from "./Components/Common/SnackBar";
 
 const PublicRoutes = () => (
@@ -49,8 +48,6 @@ const mapsStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    OnAuthentication: () => dispatch(isUserAuthenticated()),
-  };
+  return {};
 };
 export default connect(mapsStateToProps, mapDispatchToProps)(withRouter(App));

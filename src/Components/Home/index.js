@@ -1,5 +1,4 @@
 import React from "react";
-import Stories from "../Stories/Stories";
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -11,7 +10,6 @@ import {
   Bookmark,
   RadioButtonUncheckedTwoTone,
 } from "@material-ui/icons";
-import Circles from "../Circles";
 import ArticleList from "../ArticleList";
 import BookMarkedArticles from "../BookMarkedArticles";
 import AppBar from "../Common/AppBar";
