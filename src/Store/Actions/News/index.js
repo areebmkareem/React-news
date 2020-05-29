@@ -10,9 +10,7 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
   let articlesPerPage = await dispatch(paginateArticles());
 
   try {
-    //     let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=${process.env.NEWS_API_KEY}`;
-
-    let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=bb305c7782b04a05b9f86066a2a95268`;
+    let URL = `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=bb305c7782b04a05b9f86066a2a95268`;
 
     let options = {
       method: "get",
@@ -36,6 +34,10 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
 
     return Promise.resolve();
   } catch (err) {
+    dispatch({
+      type: newsFeed.HANDLE_SNACKBAR,
+      data: { open: true, message: JSON.stringify(err) },
+    });
     dispatch({ type: newsFeed.SET_IS_ARTICLE_LOADING, data: false });
     return Promise.resolve();
   }
@@ -57,9 +59,12 @@ export const getComments = () => async (dispatch, getState) => {
 
     let respone = await fetch(URL, options);
     let responsePayload = await respone.json();
-
     dispatch({ type: newsFeed.SET_COMMENTS, data: responsePayload });
   } catch (err) {
+    dispatch({
+      type: newsFeed.HANDLE_SNACKBAR,
+      data: { open: true, message: JSON.stringify(err) },
+    });
     dispatch({ type: newsFeed.SET_IS_COMMENT_LOADING, data: false });
   }
 };

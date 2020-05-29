@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Telegram from "@material-ui/icons/Telegram";
 import Camera from "@material-ui/icons/Camera";
+import ArrowBack from "@material-ui/icons/ArrowBack";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,25 +21,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ isPush }) {
+export default function Header({ isPush, title }) {
   const classes = useStyles();
+  let history = useHistory();
+
+  const onClickHandle = () => {
+    if (isPush) history.goBack();
+  };
 
   return (
     <div className={classes.root}>
       <AppBar position="fixed" style={{ backgroundColor: "white" }}>
         <Toolbar>
           <IconButton
+            onClick={() => onClickHandle()}
             edge="start"
             className={classes.menuButton}
             color="default"
             aria-label="menu">
-            <Camera />
+            {isPush ? <ArrowBack /> : <Camera />}
           </IconButton>
           <Typography
             variant="h6"
             color="textSecondary"
             className={classes.title}>
-            Instagram
+            {title || "Instagram"}
           </Typography>
           <IconButton edge="start" color="default" aria-label="menu">
             <Telegram />

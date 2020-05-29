@@ -10,7 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+import ChatBubble from "@material-ui/icons/ChatBubble";
 import Telegram from "@material-ui/icons/Telegram";
 import BookmarkBorder from "@material-ui/icons/BookmarkBorder";
 import Bookmark from "@material-ui/icons/Bookmark";
@@ -79,6 +79,7 @@ const FeedCard = ({ article, ...props }) => {
         title={article.author || "Unknown Source"}
       />
       <CardMedia
+        component="image"
         className={classes.media}
         image={article.urlToImage}
         title={article.title}
@@ -96,7 +97,7 @@ const FeedCard = ({ article, ...props }) => {
               <FavoriteIcon />
             </IconButton>
             <IconButton aria-label="share">
-              <ShareIcon />
+              <ChatBubble />
             </IconButton>
             <IconButton aria-label="send">
               <Telegram />

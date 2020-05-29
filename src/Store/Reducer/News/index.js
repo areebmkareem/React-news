@@ -32,7 +32,6 @@ const news = (state = initialState, action) => {
         isCommentsLoading: false,
       };
     case newsFeed.SET_SAVED_ARTICLES:
-      console.log(action.data.length, "hello");
       return {
         ...state,
         savedArticles: action.data,

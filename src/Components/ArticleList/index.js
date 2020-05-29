@@ -32,12 +32,13 @@ const Home = ({ articles, ...props }) => {
 
   const handlePagination = async (page) => {
     if (!isFetchProcessing) {
+      console.log("[Pagination...]");
       setIsFetchProcessing(true);
-      console.log(page, page > props.totalArticlesPage);
       let isTotalArticlesReached = articles.length === totalArticles;
       if (!isTotalArticlesReached && page > props.totalArticlesPage) {
         await getTopStories();
         setIsFetchProcessing(false);
+        console.log("[Done]");
       } else setHasMoreToFetch(false);
     }
   };
@@ -68,7 +69,7 @@ const Home = ({ articles, ...props }) => {
           initialLoad={false}
           loadMore={(page) => handlePagination(page)}
           hasMore={hasMoreToFetch}
-          loader={<LinearProgress />}
+          loader={<LinearProgress key={0} />}
           useWindow={true}>
           {articles.map((item, index) => (
             <Grid key={index} item xs={12} style={{ backgroundColor: "red" }}>

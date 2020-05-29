@@ -28,14 +28,16 @@ function Comments({ comments, isCommentsLoading, ...props }) {
   }, []);
 
   const classes = useStyles();
-  console.log(comments);
   return (
     <>
-      <Header />
+      <Header isPush title="Comments" />
       <Grid container style={{ marginTop: 56 }}>
         <Grid item xs={12}>
           {isCommentsLoading ? (
-            <Grid container justify="center" alignItems="stretch">
+            <Grid
+              container
+              justify="center"
+              style={{ height: "100%", alignItems: "center", padding: 10 }}>
               <Grid item>
                 <CircularProgress />
               </Grid>
@@ -65,10 +67,17 @@ function Comments({ comments, isCommentsLoading, ...props }) {
               ))}
             </List>
           ) : (
-            <Grid container>
-              <Grid item>
-                <Typography>No Comments</Typography>
-              </Grid>
+            <Grid
+              item
+              xs={12}
+              style={{
+                height: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+              }}>
+              <Typography variant="h5">No comments yet!</Typography>
             </Grid>
           )}
         </Grid>
