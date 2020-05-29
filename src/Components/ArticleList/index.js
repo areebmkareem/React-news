@@ -5,6 +5,7 @@ import {
   Backdrop,
   CircularProgress,
   Typography,
+  LinearProgress,
 } from "@material-ui/core";
 
 import FeedCard from "../Common/FeedCard";
@@ -67,6 +68,7 @@ const Home = ({ articles, ...props }) => {
           initialLoad={false}
           loadMore={(page) => handlePagination(page)}
           hasMore={hasMoreToFetch}
+          loader={<LinearProgress />}
           useWindow={true}>
           {articles.map((item, index) => (
             <Grid key={index} item xs={12} style={{ backgroundColor: "red" }}>

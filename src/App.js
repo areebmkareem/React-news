@@ -26,14 +26,14 @@ const App = (props) => {
       direction="row"
       justify="center"
       alignItems="stretch"
-      style={{ backgroundColor: "#D3D3D3" }}>
+      style={{ height: "100vh" }}>
       <Grid
         item
         xs={12}
         md={6}
         style={{
           position: "relative",
-          backgroundColor: "white",
+          height: "100vh",
         }}>
         <PublicRoutes />
       </Grid>

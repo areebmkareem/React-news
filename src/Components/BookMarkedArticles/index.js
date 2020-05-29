@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 import FeedCard from "../Common/FeedCard";
 import { connect } from "react-redux";
@@ -8,11 +8,26 @@ import { connect } from "react-redux";
 const BookMarkedArticles = ({ articles, ...props }) => {
   return (
     <Grid container>
-      {articles.map((item, index) => (
-        <Grid key={index} item xs={12}>
-          <FeedCard article={item} savedArticles={props.savedArticles} />
+      {articles && articles.length ? (
+        articles.map((item, index) => (
+          <Grid key={index} item xs={12}>
+            <FeedCard article={item} savedArticles={props.savedArticles} />
+          </Grid>
+        ))
+      ) : (
+        <Grid
+          item
+          xs={12}
+          style={{
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+          }}>
+          <Typography variant="h5">No bookmarks yet!</Typography>
         </Grid>
-      ))}
+      )}
     </Grid>
   );
 };
