@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
-import { Grid, Container } from "@material-ui/core";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import Stories from "./Components/Stories/Stories";
+import { Grid } from "@material-ui/core";
+import { Switch, Route, withRouter } from "react-router-dom";
 import Home from "./Components/Home";
 import Comments from "./Components/Comments";
 import { connect } from "react-redux";

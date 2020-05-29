@@ -10,11 +10,18 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
   let articlesPerPage = await dispatch(paginateArticles());
 
   try {
-    let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=${process.env.NEWS_API_KEY}`;
+    //     let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=${process.env.NEWS_API_KEY}`;
 
+    let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=bb305c7782b04a05b9f86066a2a95268`;
     console.log("URL: ", URL);
 
-    let options = { method: "get" };
+    let options = {
+      method: "get",
+      headers: {
+        "access-control-allow-origin": "*",
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    };
     let respone = await fetch(URL, options);
     let responsePayload = await respone.json();
     console.log(responsePayload);
