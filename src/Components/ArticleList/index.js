@@ -16,6 +16,10 @@ const Home = ({ articles, ...props }) => {
   React.useEffect(() => {
     getTopStories();
     props.getSavedArticlesFromLocal();
+
+    window.addEventListener("scroll", handlePagination);
+
+    return () => window.removeEventListener("scroll", handlePagination);
   }, []);
 
   const getTopStories = () => {
@@ -24,10 +28,11 @@ const Home = ({ articles, ...props }) => {
 
   const { isArticlesLoading, totalArticles } = props;
 
-  const handlePagination = () => {
-    let isTotalArticlesReached = articles.length === totalArticles;
-
-    if (!isTotalArticlesReached) getTopStories();
+  const handlePagination = (event) => {
+    let scrollTop = event.srcElement.body.scrollTop;
+    console.log(scrollTop);
+    // let isTotalArticlesReached = articles.length === totalArticles;
+    // if (!isTotalArticlesReached) getTopStories();
   };
 
   return (

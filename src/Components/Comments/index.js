@@ -35,7 +35,7 @@ function Comments({ comments, isCommentsLoading, ...props }) {
       <Grid container style={{ marginTop: 56 }}>
         <Grid item xs={12}>
           {isCommentsLoading ? (
-            <Grid container>
+            <Grid container justify="center" alignItems="stretch">
               <Grid item>
                 <CircularProgress />
               </Grid>
