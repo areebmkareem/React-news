@@ -17,11 +17,8 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
 
     let options = {
       method: "get",
-      headers: {
-        "access-control-allow-origin": "*",
-        "Content-type": "application/json; charset=UTF-8",
-      },
     };
+
     let respone = await fetch(URL, options);
     let responsePayload = await respone.json();
     console.log(responsePayload);
