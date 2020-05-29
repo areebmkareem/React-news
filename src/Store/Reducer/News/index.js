@@ -10,6 +10,10 @@ const initialState = {
   totalArticles: 0,
   savedArticles: {},
   savedArticlesLoading: true,
+  snackbarProps: {
+    open: false,
+    message: "test",
+  },
 };
 
 const news = (state = initialState, action) => {
@@ -53,6 +57,12 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
+      };
+
+    case newsFeed.HANDLE_SNACKBAR:
+      return {
+        ...state,
+        snackbarProps: { ...state.snackbarProps, ...action.data },
       };
     default:
       return state;

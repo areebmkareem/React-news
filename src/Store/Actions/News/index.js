@@ -1,6 +1,7 @@
 import { newsFeed } from "../../actionTypes";
 
 const IS_SUCESS = "ok";
+const IS_FAIL = "error";
 
 export const getNews = (isInitialFetch) => async (dispatch, getState) => {
   if (isInitialFetch)
@@ -9,22 +10,34 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
   let articlesPerPage = await dispatch(paginateArticles());
 
   try {
-    let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=${process.env.NEWS_API_KEY}`;
+    //     let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=${process.env.NEWS_API_KEY}`;
 
+    let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=bb305c7782b04a05b9f86066a2a95268`;
     console.log("URL: ", URL);
 
     let options = { method: "get" };
     let respone = await fetch(URL, options);
     let responsePayload = await respone.json();
+    console.log(responsePayload);
+    if (responsePayload.status === IS_FAIL) {
+      dispatch({
+        type: newsFeed.HANDLE_SNACKBAR,
+        data: { open: true, message: responsePayload.message },
+      });
+      dispatch({ type: newsFeed.SET_IS_ARTICLE_LOADING, data: false });
+    }
 
     if (responsePayload.status === IS_SUCESS)
-      dispatch({
+      await dispatch({
         type: newsFeed.SET_NEWS_FEED,
         data: responsePayload.articles,
         totalResults: responsePayload.totalResults,
       });
+
+    return Promise.resolve();
   } catch (err) {
     dispatch({ type: newsFeed.SET_IS_ARTICLE_LOADING, data: false });
+    return Promise.resolve();
   }
 };
 

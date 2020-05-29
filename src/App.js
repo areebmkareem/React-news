@@ -7,6 +7,7 @@ import Home from "./Components/Home";
 import Comments from "./Components/Comments";
 import { connect } from "react-redux";
 import { isUserAuthenticated } from "./Store/Actions/Authentication";
+import CustomizedSnackbars from "./Components/Common/SnackBar";
 
 const PublicRoutes = () => (
   <Switch>
@@ -38,6 +39,8 @@ const App = (props) => {
         }}>
         <PublicRoutes />
       </Grid>
+
+      <CustomizedSnackbars />
     </Grid>
   );
 };

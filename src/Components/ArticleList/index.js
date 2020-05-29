@@ -10,29 +10,35 @@ import {
 import FeedCard from "../Common/FeedCard";
 import { getNews, getSavedArticlesFromLocal } from "../../Store/Actions/News";
 import { connect } from "react-redux";
+import InfiniteScroll from "react-infinite-scroller";
+
 // import ArticleList from "../Molecules/ArticleList";
 
 const Home = ({ articles, ...props }) => {
+  const [isFetchProcessing, setIsFetchProcessing] = React.useState(false);
+  const [hasMoreToFetch, setHasMoreToFetch] = React.useState(true);
+
   React.useEffect(() => {
     getTopStories();
     props.getSavedArticlesFromLocal();
-
-    window.addEventListener("scroll", handlePagination);
-
-    return () => window.removeEventListener("scroll", handlePagination);
   }, []);
 
   const getTopStories = () => {
-    props.getNews();
+    return props.getNews();
   };
 
   const { isArticlesLoading, totalArticles } = props;
 
-  const handlePagination = (event) => {
-    let scrollTop = event.srcElement.body.scrollTop;
-    console.log(scrollTop);
-    // let isTotalArticlesReached = articles.length === totalArticles;
-    // if (!isTotalArticlesReached) getTopStories();
+  const handlePagination = async (page) => {
+    if (!isFetchProcessing) {
+      setIsFetchProcessing(true);
+      console.log(page, page > props.totalArticlesPage);
+      let isTotalArticlesReached = articles.length === totalArticles;
+      if (!isTotalArticlesReached && page > props.totalArticlesPage) {
+        await getTopStories();
+        setIsFetchProcessing(false);
+      } else setHasMoreToFetch(false);
+    }
   };
 
   return (
@@ -56,11 +62,30 @@ const Home = ({ articles, ...props }) => {
           </Grid>
         </Grid>
       ) : (
-        articles.map((item, index) => (
-          <Grid key={index} item xs={12}>
-            <FeedCard article={item} savedArticles={props.savedArticles} />
-          </Grid>
-        ))
+        <InfiniteScroll
+          pageStart={1}
+          initialLoad={false}
+          loadMore={(page) => handlePagination(page)}
+          hasMore={hasMoreToFetch}
+          loader={
+            <div
+              className="loader"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              key={0}>
+              Loading ...
+            </div>
+          }
+          useWindow={true}>
+          {articles.map((item, index) => (
+            <Grid key={index} item xs={12}>
+              <FeedCard article={item} savedArticles={props.savedArticles} />
+            </Grid>
+          ))}
+        </InfiniteScroll>
       )}
     </Grid>
   );
