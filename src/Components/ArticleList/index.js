@@ -42,7 +42,7 @@ const Home = ({ articles, ...props }) => {
   };
 
   return (
-    <Grid container direction="row" alignItems="stretch">
+    <>
       {isArticlesLoading ? (
         <Grid
           item
@@ -67,27 +67,15 @@ const Home = ({ articles, ...props }) => {
           initialLoad={false}
           loadMore={(page) => handlePagination(page)}
           hasMore={hasMoreToFetch}
-          loader={
-            <div
-              className="loader"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              key={0}>
-              Loading ...
-            </div>
-          }
           useWindow={true}>
           {articles.map((item, index) => (
-            <Grid key={index} item xs={12}>
+            <Grid key={index} item xs={12} style={{ backgroundColor: "red" }}>
               <FeedCard article={item} savedArticles={props.savedArticles} />
             </Grid>
           ))}
         </InfiniteScroll>
       )}
-    </Grid>
+    </>
   );
 };
 

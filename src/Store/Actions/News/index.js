@@ -12,14 +12,10 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
   try {
     //     let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=${process.env.NEWS_API_KEY}`;
 
-    let URL = `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=bb305c7782b04a05b9f86066a2a95268`;
+    let URL = `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=bb305c7782b04a05b9f86066a2a95268`;
 
     let options = {
       method: "get",
-      headers: {
-        "access-control-allow-origin": "*",
-        "Content-type": "application/json; charset=UTF-8",
-      },
     };
     let respone = await fetch(URL, options);
     let responsePayload = await respone.json();
@@ -49,7 +45,8 @@ export const getComments = () => async (dispatch, getState) => {
   dispatch({ type: newsFeed.SET_IS_COMMENT_LOADING, data: true });
 
   try {
-    let URL = "https://cookbookrecipes.in/test.php";
+    let URL =
+      "https://cors-anywhere.herokuapp.com/https://cookbookrecipes.in/test.php";
     let options = {
       method: "get",
       headers: {
