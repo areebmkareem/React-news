@@ -10,7 +10,7 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
   let articlesPerPage = await dispatch(paginateArticles());
 
   try {
-    let URL = `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=bb305c7782b04a05b9f86066a2a95268`;
+    let URL = `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=${articlesPerPage}&apiKey=1ab3ef5e74654e1dbb6d2c457cb9474e`;
 
     let options = {
       method: "get",
@@ -22,7 +22,11 @@ export const getNews = (isInitialFetch) => async (dispatch, getState) => {
         type: newsFeed.HANDLE_SNACKBAR,
         data: { open: true, message: responsePayload.message },
       });
-      dispatch({ type: newsFeed.SET_IS_ARTICLE_LOADING, data: false });
+      await dispatch({
+        type: newsFeed.SET_NEWS_FEED,
+        data: [],
+        totalResults: 0,
+      });
     }
 
     if (responsePayload.status === IS_SUCESS)
