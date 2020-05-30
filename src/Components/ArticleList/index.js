@@ -63,7 +63,7 @@ const Home = ({ articles, ...props }) => {
             </Typography>
           </Grid>
         </Grid>
-      ) : (
+      ) : articles && articles.length ? (
         <InfiniteScroll
           pageStart={1}
           initialLoad={false}
@@ -77,6 +77,19 @@ const Home = ({ articles, ...props }) => {
             </Grid>
           ))}
         </InfiniteScroll>
+      ) : (
+        <Grid
+          item
+          xs={12}
+          style={{
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+          }}>
+          <Typography variant="h5">No articles at the moment</Typography>
+        </Grid>
       )}
     </>
   );
